@@ -12,15 +12,7 @@
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Digite o seu email">
             </mat-form-field>
-            <mat-form-field appearance="fill"  class="full-width">
-                <mat-label>Senha</mat-label>
-                <input matInput [type]="hide() ? 'password' : 'text'" matInput placeholder="Digie sua Senha" />
-                <button matIconButton matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide()">
-                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-
+            <app-password-field></app-password-field>
         </mat-card-content>
         <mat-card-actions>
             <button matButton="elevated" class="full-width">Cadastrar</button>
