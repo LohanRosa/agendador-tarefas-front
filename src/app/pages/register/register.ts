@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { PasswordField } from '../../shared/components/password-field/password-field';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -19,11 +20,11 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
     MatIconModule,
     PasswordField,
     ReactiveFormsModule,
+    CommonModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   templateUrl: './register.html',
   styleUrl: './register.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class Register {
   form: FormGroup;
