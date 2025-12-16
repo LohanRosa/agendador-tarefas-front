@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,7 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { PasswordField } from '../../shared/components/password-field/password-field';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { merge } from 'rxjs';
+
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,6 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     PasswordField,
     ReactiveFormsModule,
-    CommonModule,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -41,18 +41,30 @@ export class Register {
     return this.form.get('password') as FormControl;
   }
 
-  submit(){  
+  get fullNameErros(): string | null {
+    const fullNameControl = this.form.get('fullName');
+    if (fullNameControl?.hasError('required')) return 'O nome completo é obrigatório';
+    if (fullNameControl?.hasError('minlength')) return 'Cadastre um nome com mais de 3 letras';
+    return null;
+  }
 
+  get emailErros(): string | null {
+    const emailControl = this.form.get('email');
+    if (emailControl?.hasError('required')) return 'O email é obrigatório';
+    if (emailControl?.hasError('email')) return 'Este email é inválido, digite um valido'
+    return null;
+  }
+
+
+  submit(){  
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-
     console.log(this.form.value);
   }
 
-
-
+  
 
 
 }
