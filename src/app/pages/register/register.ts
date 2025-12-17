@@ -6,9 +6,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { PasswordField } from '../../shared/components/password-field/password-field';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { merge } from 'rxjs';
-
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +37,18 @@ export class Register {
     this.form = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['']
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(/[A-Z]/),
+          Validators.pattern(/[a-z]/),
+          Validators.pattern(/[0-9]/),
+          Validators.pattern(/[@$!%*?$]/),
+          Validators.pattern(/^\S*$/)
+        ],
+      ],
     });
   }
 
@@ -51,20 +66,15 @@ export class Register {
   get emailErros(): string | null {
     const emailControl = this.form.get('email');
     if (emailControl?.hasError('required')) return 'O email é obrigatório';
-    if (emailControl?.hasError('email')) return 'Este email é inválido, digite um valido'
+    if (emailControl?.hasError('email')) return 'Este email é inválido, digite um valido';
     return null;
   }
 
-
-  submit(){  
+  submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
     console.log(this.form.value);
   }
-
-  
-
-
 }
